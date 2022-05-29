@@ -1,0 +1,5 @@
+0 10 for
+	i 1 +
+	.
+	10 putch
+loop
