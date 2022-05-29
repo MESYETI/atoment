@@ -245,6 +245,10 @@ void BuiltIn::I(ATM::Language_Components& lc) {
 }
 
 void BuiltIn::Add(ATM::Language_Components& lc) {
+	if (lc.stack.size() < 2) {
+		fprintf(stderr, "[ERROR] add: stack underflow\n");
+		exit(1);
+	}
 	uint8_t secondNumber = lc.stack.back();
 	lc.stack.pop_back();
 	uint8_t firstNumber  = lc.stack.back();
@@ -254,6 +258,10 @@ void BuiltIn::Add(ATM::Language_Components& lc) {
 }
 
 void BuiltIn::Sub(ATM::Language_Components& lc) {
+	if (lc.stack.size() < 2) {
+		fprintf(stderr, "[ERROR] sub: stack underflow\n");
+		exit(1);
+	}
 	uint8_t secondNumber = lc.stack.back();
 	lc.stack.pop_back();
 	uint8_t firstNumber  = lc.stack.back();
@@ -263,6 +271,10 @@ void BuiltIn::Sub(ATM::Language_Components& lc) {
 }
 
 void BuiltIn::Mul(ATM::Language_Components& lc) {
+	if (lc.stack.size() < 2) {
+		fprintf(stderr, "[ERROR] mul: stack underflow\n");
+		exit(1);
+	}
 	uint8_t secondNumber = lc.stack.back();
 	lc.stack.pop_back();
 	uint8_t firstNumber  = lc.stack.back();
@@ -272,6 +284,10 @@ void BuiltIn::Mul(ATM::Language_Components& lc) {
 }
 
 void BuiltIn::Div(ATM::Language_Components& lc) {
+	if (lc.stack.size() < 2) {
+		fprintf(stderr, "[ERROR] div: stack underflow\n");
+		exit(1);
+	}
 	uint8_t secondNumber = lc.stack.back();
 	lc.stack.pop_back();
 	uint8_t firstNumber  = lc.stack.back();
@@ -281,6 +297,10 @@ void BuiltIn::Div(ATM::Language_Components& lc) {
 }
 
 void BuiltIn::Mod(ATM::Language_Components& lc) {
+	if (lc.stack.size() < 2) {
+		fprintf(stderr, "[ERROR] mod: stack underflow\n");
+		exit(1);
+	}
 	uint8_t secondNumber = lc.stack.back();
 	lc.stack.pop_back();
 	uint8_t firstNumber  = lc.stack.back();
@@ -290,5 +310,90 @@ void BuiltIn::Mod(ATM::Language_Components& lc) {
 }
 
 void BuiltIn::Dup(ATM::Language_Components& lc) {
+	if (lc.stack.size() == 0) {
+		fprintf(stderr, "[ERROR] dup: stack underflow\n");
+		exit(1);
+	}
 	lc.stack.push_back(lc.stack.back());
+}
+
+void BuiltIn::Equal(ATM::Language_Components& lc) {
+	if (lc.stack.size() < 2) {
+		fprintf(stderr, "[ERROR] equal: stack underflow\n");
+		exit(1);
+	}
+	uint8_t secondItem = lc.stack.back();
+	lc.stack.pop_back();
+	uint8_t firstItem  = lc.stack.back();
+	lc.stack.pop_back();
+
+	lc.stack.push_back(firstItem == secondItem? ATM_BOOLEAN_TRUE : ATM_BOOLEAN_FALSE);
+}
+
+void BuiltIn::LessThan(ATM::Language_Components& lc) {
+	if (lc.stack.size() < 2) {
+		fprintf(stderr, "[ERROR] greater than: stack underflow\n");
+		exit(1);
+	}
+	uint8_t secondItem = lc.stack.back();
+	lc.stack.pop_back();
+	uint8_t firstItem  = lc.stack.back();
+	lc.stack.pop_back();
+
+	lc.stack.push_back(firstItem < secondItem? ATM_BOOLEAN_TRUE : ATM_BOOLEAN_FALSE);
+}
+
+void BuiltIn::GreaterThan(ATM::Language_Components& lc) {
+	if (lc.stack.size() < 2) {
+		fprintf(stderr, "[ERROR] greater than: stack underflow\n");
+		exit(1);
+	}
+	uint8_t secondItem = lc.stack.back();
+	lc.stack.pop_back();
+	uint8_t firstItem  = lc.stack.back();
+	lc.stack.pop_back();
+
+	lc.stack.push_back(firstItem > secondItem? ATM_BOOLEAN_TRUE : ATM_BOOLEAN_FALSE);
+}
+
+void BuiltIn::Not(ATM::Language_Components& lc) {
+	if (lc.stack.size() < 1) {
+		fprintf(stderr, "[ERROR] not: stack underflow\n");
+		exit(1);
+	}
+	uint8_t boolean = lc.stack.back();
+	lc.stack.pop_back();
+	lc.stack.push_back(boolean == ATM_BOOLEAN_TRUE? ATM_BOOLEAN_FALSE : ATM_BOOLEAN_TRUE);
+}
+
+void BuiltIn::And(ATM::Language_Components& lc) {
+	if (lc.stack.size() < 2) {
+		fprintf(stderr, "[ERROR] and: stack underflow");
+	}
+
+	uint8_t secondItem = lc.stack.back();
+	lc.stack.pop_back();
+	uint8_t firstItem  = lc.stack.back();
+	lc.stack.pop_back();
+
+	lc.stack.push_back((
+		(firstItem  == ATM_BOOLEAN_TRUE) &&
+		(secondItem == ATM_BOOLEAN_TRUE)
+	)? ATM_BOOLEAN_TRUE : ATM_BOOLEAN_FALSE);
+}
+
+void BuiltIn::Or(ATM::Language_Components& lc) {
+	if (lc.stack.size() < 2) {
+		fprintf(stderr, "[ERROR] or: stack underflow");
+	}
+
+	uint8_t secondItem = lc.stack.back();
+	lc.stack.pop_back();
+	uint8_t firstItem  = lc.stack.back();
+	lc.stack.pop_back();
+
+	lc.stack.push_back((
+		(firstItem  == ATM_BOOLEAN_TRUE) ||
+		(secondItem == ATM_BOOLEAN_TRUE)
+	)? ATM_BOOLEAN_TRUE : ATM_BOOLEAN_FALSE);
 }

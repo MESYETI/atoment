@@ -64,7 +64,13 @@ ATM::Language_Components ATM::BuildLanguageComponents(std::vector <Lexer::Token>
 	ret.functionMap.AddCXXFunction("*",       BuiltIn::Mul);
 	ret.functionMap.AddCXXFunction("/",       BuiltIn::Div);
 	ret.functionMap.AddCXXFunction("%",       BuiltIn::Mod);
-	ret.functionMap.AddCXXFunction("dup",     BuiltIn::Dup);
+	ret.functionMap.AddCXXFunction("=",       BuiltIn::Equal);
+	ret.functionMap.AddCXXFunction("<",       BuiltIn::LessThan);
+	ret.functionMap.AddCXXFunction(">",       BuiltIn::GreaterThan);
+	ret.functionMap.AddCXXFunction("not",     BuiltIn::Not);
+	ret.functionMap.AddCXXFunction("and",     BuiltIn::And);
+	ret.functionMap.AddCXXFunction("or",      BuiltIn::Or);
+
 
 	return ret;
 }

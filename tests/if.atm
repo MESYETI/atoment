@@ -1,0 +1,27 @@
+2 2 = if
+	"2 and 2 are equal\n" putstr
+end
+
+2 3 < if
+	"3 is bigger than 2\n" putstr
+end
+
+10 5 > if
+	"5 is small than 10\n" putstr
+end
+
+2 2 =
+4 4 =
+and if
+	"2 and 2 are equal, 4 and 4 are equal\n"
+end
+
+2 3 = not if
+	"2 and 3 are not equal\n"
+end
+
+2 2 =
+3 4 =
+or if
+	"2 and 2 are equal\n"
+end
