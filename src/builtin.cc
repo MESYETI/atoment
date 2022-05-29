@@ -289,3 +289,6 @@ void BuiltIn::Mod(ATM::Language_Components& lc) {
 	lc.stack.push_back(firstNumber % secondNumber);
 }
 
+void BuiltIn::Dup(ATM::Language_Components& lc) {
+	lc.stack.push_back(lc.stack.back());
+}

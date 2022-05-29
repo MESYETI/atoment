@@ -16,4 +16,5 @@ namespace BuiltIn {
 	void Mul(ATM::Language_Components& lc);      // *
 	void Div(ATM::Language_Components& lc);      // /
 	void Mod(ATM::Language_Components& lc);      // %
+	void Dup(ATM::Language_Components& lc);      // dup
 }
