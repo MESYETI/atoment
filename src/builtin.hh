@@ -23,4 +23,7 @@ namespace BuiltIn {
 	void Not(ATM::Language_Components& lc);         // not
 	void And(ATM::Language_Components& lc);         // and
 	void Or(ATM::Language_Components& lc);          // or
+	void GetArg(ATM::Language_Components& lc);      // getarg
+	void GetArgSize(ATM::Language_Components& lc);  // getargsize
+	void GetAllArgs(ATM::Language_Components& lc);  // getallargs
 }

@@ -397,3 +397,38 @@ void BuiltIn::Or(ATM::Language_Components& lc) {
 		(secondItem == ATM_BOOLEAN_TRUE)
 	)? ATM_BOOLEAN_TRUE : ATM_BOOLEAN_FALSE);
 }
+
+void BuiltIn::GetArg(ATM::Language_Components& lc) {
+	if (lc.stack.size() == 0) {
+		fprintf(stderr, "[ERROR] getarg: stack underflow\n");
+		exit(1);
+	}
+
+	uint8_t argIndex = lc.stack.back();
+	lc.stack.pop_back();
+
+	if (argIndex >= lc.programArgv.size()) {
+		fprintf(stderr, "[ERROR] not enough arguments (%i) to access argument (%i)\n", (int) lc.programArgv.size(), argIndex);
+		exit(1);
+	}
+
+	std::string arg = lc.programArgv[argIndex];
+
+	for (ssize_t i = arg.length(); i >= 0; --i) {
+		lc.stack.push_back(arg[i]);
+	}
+}
+
+void BuiltIn::GetArgSize(ATM::Language_Components& lc) {
+	lc.stack.push_back((uint8_t)lc.programArgv.size());
+}
+
+void BuiltIn::GetAllArgs(ATM::Language_Components& lc) {
+	for (size_t i = 0; i < lc.programArgv.size(); ++i) {
+		std::string arg = lc.programArgv[i];
+
+		for (ssize_t j = arg.length(); j >= 0; --j) {
+			lc.stack.push_back(arg[j]);
+		}
+	}
+}

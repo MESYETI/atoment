@@ -1,0 +1,6 @@
+0 getargsize for
+    i getarg putstr
+    " " putstr
+loop
+
+10 putch

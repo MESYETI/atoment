@@ -44,32 +44,36 @@ void ATM::FunctionMap::AddATMFunction(std::string name, std::vector <Lexer::Toke
 	map.push_back({name, add});
 }
 
-ATM::Language_Components ATM::BuildLanguageComponents(std::vector <Lexer::Token> tokens) {
+ATM::Language_Components ATM::BuildLanguageComponents(std::vector <Lexer::Token> tokens, std::vector <std::string> argv) {
 	ATM::Language_Components ret;
 
 	ret.tokens          = tokens;
 	ret.tokenIterator   = 0;
 	ret.forLoopIterator = 0;
+	ret.programArgv     = argv;
 
-	ret.functionMap.AddCXXFunction(".",       BuiltIn::PrintInt);
-	ret.functionMap.AddCXXFunction("putstr",  BuiltIn::PutStr);
-	ret.functionMap.AddCXXFunction("putch",   BuiltIn::PutCh);
-	ret.functionMap.AddCXXFunction("if",      BuiltIn::If);
-	ret.functionMap.AddCXXFunction("func",    BuiltIn::Func);
-	ret.functionMap.AddCXXFunction("include", BuiltIn::Include);
-	ret.functionMap.AddCXXFunction("for",     BuiltIn::For);
-	ret.functionMap.AddCXXFunction("i",       BuiltIn::I);
-	ret.functionMap.AddCXXFunction("+",       BuiltIn::Add);
-	ret.functionMap.AddCXXFunction("-",       BuiltIn::Sub);
-	ret.functionMap.AddCXXFunction("*",       BuiltIn::Mul);
-	ret.functionMap.AddCXXFunction("/",       BuiltIn::Div);
-	ret.functionMap.AddCXXFunction("%",       BuiltIn::Mod);
-	ret.functionMap.AddCXXFunction("=",       BuiltIn::Equal);
-	ret.functionMap.AddCXXFunction("<",       BuiltIn::LessThan);
-	ret.functionMap.AddCXXFunction(">",       BuiltIn::GreaterThan);
-	ret.functionMap.AddCXXFunction("not",     BuiltIn::Not);
-	ret.functionMap.AddCXXFunction("and",     BuiltIn::And);
-	ret.functionMap.AddCXXFunction("or",      BuiltIn::Or);
+	ret.functionMap.AddCXXFunction(".",          BuiltIn::PrintInt);
+	ret.functionMap.AddCXXFunction("putstr",     BuiltIn::PutStr);
+	ret.functionMap.AddCXXFunction("putch",      BuiltIn::PutCh);
+	ret.functionMap.AddCXXFunction("if",         BuiltIn::If);
+	ret.functionMap.AddCXXFunction("func",       BuiltIn::Func);
+	ret.functionMap.AddCXXFunction("include",    BuiltIn::Include);
+	ret.functionMap.AddCXXFunction("for",        BuiltIn::For);
+	ret.functionMap.AddCXXFunction("i",          BuiltIn::I);
+	ret.functionMap.AddCXXFunction("+",          BuiltIn::Add);
+	ret.functionMap.AddCXXFunction("-",          BuiltIn::Sub);
+	ret.functionMap.AddCXXFunction("*",          BuiltIn::Mul);
+	ret.functionMap.AddCXXFunction("/",          BuiltIn::Div);
+	ret.functionMap.AddCXXFunction("%",          BuiltIn::Mod);
+	ret.functionMap.AddCXXFunction("=",          BuiltIn::Equal);
+	ret.functionMap.AddCXXFunction("<",          BuiltIn::LessThan);
+	ret.functionMap.AddCXXFunction(">",          BuiltIn::GreaterThan);
+	ret.functionMap.AddCXXFunction("not",        BuiltIn::Not);
+	ret.functionMap.AddCXXFunction("and",        BuiltIn::And);
+	ret.functionMap.AddCXXFunction("or",         BuiltIn::Or);
+	ret.functionMap.AddCXXFunction("getarg",     BuiltIn::GetArg);
+	ret.functionMap.AddCXXFunction("getargsize", BuiltIn::GetArgSize);
+	ret.functionMap.AddCXXFunction("getallarg",  BuiltIn::GetAllArgs);
 
 
 	return ret;
@@ -84,6 +88,7 @@ ATM::Language_Components ATM::CopyLanguageComponents(Language_Components lc) {
 	ret.tokens          = lc.tokens;
 	ret.tokenIterator   = 0;
 	ret.forLoopIterator = 0;
+	ret.programArgv     = lc.programArgv;
 
 	return ret;
 }

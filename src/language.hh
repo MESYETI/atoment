@@ -50,8 +50,9 @@ namespace ATM {
 		std::vector <Lexer::Token> tokens;
 		size_t                     tokenIterator;
 		size_t                     forLoopIterator;
+		std::vector <std::string>  programArgv;
 	};
 
-	Language_Components BuildLanguageComponents(std::vector <Lexer::Token> tokens);
+	Language_Components BuildLanguageComponents(std::vector <Lexer::Token> tokens, std::vector <std::string> argv);
 	Language_Components CopyLanguageComponents(Language_Components lc);
 }

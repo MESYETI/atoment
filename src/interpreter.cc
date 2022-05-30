@@ -31,6 +31,7 @@ void Interpret(std::vector <Lexer::Token> tokens, ATM::Language_Components& lc) 
 					case ATM::FunctionType::CXXFunction: {
 						//printf("cxxfunction: %s\n", tokens[i].content.c_str());
 						lc.tokenIterator = i;
+						//printf("Interpret: argv size %i\n", (int) lc.programArgv.size());
 						function.cxxFunction(lc);
 						i = lc.tokenIterator;
 						break;

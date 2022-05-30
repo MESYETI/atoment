@@ -13,9 +13,10 @@ App::App(int argc, char** argv) {
 		exit(0);
 	}
 
-	bool gotFlags   = false;
-	bool showTokens = false;
-	bool showStack  = false;
+	bool   gotFlags        = false;
+	bool   showTokens      = false;
+	bool   showStack       = false;
+	size_t programArgStart = 0;
 	for (size_t i = 1; i < args.size(); ++i) {
 		if ((args[i][0] == '-') && !gotFlags) {
 			if ((args[i] == "--show-tokens") || (args[i] == "-st")) {
@@ -26,9 +27,21 @@ App::App(int argc, char** argv) {
 			}
 		}
 		else {
-			scriptFileName = args[i];
+			if (!gotFlags) {
+				programArgStart = i;
+				scriptFileName  = args[i];
+			}
 			gotFlags = true;
 		}
+	}
+
+	for (size_t i = programArgStart; i < args.size(); ++i) {
+		programArgs.push_back(args[i]);
+	}
+
+	if (!FS::File::Exists(scriptFileName)) {
+		fprintf(stderr, "[ERROR] file '%s' doesn't exist\n", scriptFileName.c_str());
+		exit(1);
 	}
 
 	scriptTokens = Lexer::Lex(FS::File::Read(scriptFileName));
@@ -40,7 +53,7 @@ App::App(int argc, char** argv) {
 		exit(0);
 	}
 
-	languageComponents = ATM::BuildLanguageComponents(scriptTokens);
+	languageComponents = ATM::BuildLanguageComponents(scriptTokens, programArgs);
 
 	Interpret(scriptTokens, languageComponents);
 
